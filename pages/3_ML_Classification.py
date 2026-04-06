@@ -7,8 +7,12 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import StratifiedKFold, cross_val_predict
 from sklearn.metrics import (classification_report, confusion_matrix,
                               roc_auc_score, roc_curve)
-import xgboost as xgb
-import shap
+try:
+    import xgboost as xgb
+    XGBOOST_AVAILABLE = True
+except Exception:
+    XGBOOST_AVAILABLE = False
+
 import plotly.graph_objects as go
 import plotly.express as px
 
@@ -36,7 +40,12 @@ st.markdown("""
 
 with st.sidebar:
     st.markdown("### ⚙️ ML Parameters")
-    model_choice = st.selectbox("Model", ["Random Forest", "XGBoost", "SVM (RBF)"])
+    available_models = ["Random Forest", "SVM (RBF)"]
+    if XGBOOST_AVAILABLE:
+        available_models.insert(1, "XGBoost")
+    model_choice = st.selectbox("Model", available_models)
+    if not XGBOOST_AVAILABLE:
+        st.caption("⚠️ XGBoost unavailable (libomp missing) — install via `brew install libomp`")
     n_splits     = st.slider("CV folds (StratifiedKFold)", 3, 10, 5)
     n_estimators = st.slider("n_estimators (RF/XGB)", 50, 500, 200, 50)
     max_depth    = st.slider("max_depth", 2, 10, 4)
@@ -106,9 +115,9 @@ def train_and_evaluate(X, y, model_name, n_splits, n_est, depth):
     if model_name == "Random Forest":
         clf = RandomForestClassifier(n_estimators=n_est, max_depth=depth,
                                       random_state=42, n_jobs=-1)
-    elif model_name == "XGBoost":
+    elif model_name == "XGBoost" and XGBOOST_AVAILABLE:
         clf = xgb.XGBClassifier(n_estimators=n_est, max_depth=depth,
-                                  use_label_encoder=False, eval_metric="mlogloss",
+                                  eval_metric="mlogloss",
                                   random_state=42, verbosity=0)
     else:
         clf = SVC(kernel="rbf", probability=True, random_state=42, C=1.0)
