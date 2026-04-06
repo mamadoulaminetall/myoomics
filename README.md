@@ -99,7 +99,7 @@ Three convergent molecular axes in muscular dystrophies (from systematic review)
 | Biotech / Pharma | 25,000–60,000 €/year |
 | Consulting | 800–1,500 €/day |
 
-Contact: laminetall30@gmail.com
+Contact: mamadoulaminetallgithub@gmail.com
 
 ---
 
