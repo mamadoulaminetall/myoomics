@@ -94,6 +94,7 @@ with st.sidebar:
     st.page_link("pages/3_ML_Classification.py",     label="🤖  ML Classification"      )
     st.page_link("pages/4_Rapport.py",               label="📄  Report Generator"        )
     st.page_link("pages/5_Abonnement.py",            label="💳  Pricing & Access"        )
+    st.markdown("""<a href="https://buy.stripe.com/fZu8wP8VycBf20udzob3q08" target="_blank" style="display:block;background:linear-gradient(135deg,#10b981,#059669);color:white;text-align:center;padding:11px 16px;border-radius:9px;font-weight:700;text-decoration:none;font-size:0.87rem;margin-top:12px">💳 S'abonner — 149€/mois</a>""", unsafe_allow_html=True)
 
     st.markdown("<hr style='border-color:#334155; margin:12px 0;'/>", unsafe_allow_html=True)
     st.markdown("""
